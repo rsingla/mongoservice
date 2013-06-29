@@ -4,6 +4,7 @@ package com.techcodepro.mongoservice;
 
 import java.io.IOException;
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -25,7 +26,8 @@ public class EmailSettings {
 		Session session = Session.getDefaultInstance(props,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("admin@techcodepro.com","*******");
+					return new PasswordAuthentication("admin@techcodepro.com",
+							"rajASU1279");
 				}
 			});
  
