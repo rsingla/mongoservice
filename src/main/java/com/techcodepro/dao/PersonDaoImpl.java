@@ -2,8 +2,6 @@ package com.techcodepro.dao;
 
 
 import java.util.List;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -13,10 +11,11 @@ import org.springframework.stereotype.Component;
 import com.techcodepro.model.PersonProfile;
 
 
+
 @Component
 public class PersonDaoImpl implements PersonDao {
 	
-	Logger log = Logger.getLogger(PersonDaoImpl.class);
+	//Logger log = Logger.getLogger(PersonDaoImpl.class);
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
@@ -36,12 +35,12 @@ public class PersonDaoImpl implements PersonDao {
 	public List<PersonProfile> getProfile(String key,String value) {
 		List<PersonProfile> personProfile = null;
 		try {
-			log.info("MongoTemplate"+mongoTemplate.getDb());
+			//log.info("MongoTemplate"+mongoTemplate.getDb());
 			System.out.println(mongoTemplate.getDb());
 			 personProfile = (List<PersonProfile>) mongoTemplate.find(new Query(Criteria.where(key).is(value.trim())), PersonProfile.class,"profile");
 			 
 			 if(personProfile == null) {
-				 log.info("Person"+personProfile);
+				System.out.println("Person"+personProfile);
 			 }
 		} catch(Exception e) {
 				e.printStackTrace();
@@ -50,5 +49,7 @@ public class PersonDaoImpl implements PersonDao {
 		
 		return personProfile;
 	}
+
+	
 	
 }
