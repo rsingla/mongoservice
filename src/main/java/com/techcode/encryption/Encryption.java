@@ -85,6 +85,8 @@ public class Encryption {
 	private static String toHex(String arg) {
 		return String.format("%032x", new BigInteger(arg.getBytes()));
 	}
+	
+	
 
 	private static String fromHex(String arg) {
 

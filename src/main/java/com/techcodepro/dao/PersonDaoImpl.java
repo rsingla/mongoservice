@@ -50,6 +50,12 @@ public class PersonDaoImpl implements PersonDao {
 		return personProfile;
 	}
 
+	@Override
+	public String updatePassword(String profileId, String newPassword) {
+		
+		return null;
+	}
+
 	
 	
 }

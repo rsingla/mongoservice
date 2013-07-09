@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.techcodepro.dao.PersonDao;
 import com.techcodepro.model.PersonProfile;
+import com.techcodepro.util.Utils;
 
 @Component
 public class ProfileValidation {
@@ -17,7 +18,6 @@ public class ProfileValidation {
 	PersonDao personDao;
 
 	public String homeTechCodePro(Profile profile) throws Exception {
-		System.out.println(profile);
 		validate(profile);
 		PersonProfile personProfile = profileToProfileDao(profile);
 		personDao.createProfile(personProfile);
@@ -26,21 +26,36 @@ public class ProfileValidation {
 
 	private PersonProfile profileToProfileDao(Profile profile)  {
 		PersonProfile personProfile = new PersonProfile();
-		personProfile.setProfileId(generateProfileId().toString());
-		personProfile.setAnswerOne(profile.getAnswerOne());
-		personProfile.setAnswerTwo(profile.getAnswerTwo());
-		personProfile.setAnswerThree(profile.getAnswerThree());
-		personProfile.setQuestionOne(profile.getQuestionOne());
-		personProfile.setQuestionTwo(profile.getQuestionTwo());
-		personProfile.setQuestionThree(profile.getQuestionThree());
+		personProfile.setProfileId(Utils.getProfileId());
 		personProfile.setEmail(profile.getEmail());
 		personProfile.setFirstName(profile.getFirstName());
 		personProfile.setLastName(profile.getLastName());
-		personProfile.setPassword(profile.getPassword());
+		personProfile.setPassword(Utils.toHex(profile.getPassword()));
 		return personProfile;
 
 	}
+	
+	private PersonProfile getPasswordSecuritQuestion(ResetPasswordSecurity resetPassword) {
+		PersonProfile personProfile = new PersonProfile();
+		personProfile.setQuestionOne(resetPassword.getQuestionOne());
+		personProfile.setQuestionTwo(resetPassword.getQuestionTwo());
+		personProfile.setQuestionThree(resetPassword.getQuestionThree());
+		
+		return personProfile;
+	}
 
+	private PersonProfile resetPasswordSecurityAPI(ResetPasswordSecurity resetPassword) {
+		PersonProfile personProfile = new PersonProfile();
+		personProfile.setAnswerOne(resetPassword.getAnswerOne());
+		personProfile.setAnswerTwo(resetPassword.getAnswerTwo());
+		personProfile.setAnswerThree(resetPassword.getAnswerThree());
+		personProfile.setQuestionOne(resetPassword.getQuestionOne());
+		personProfile.setQuestionTwo(resetPassword.getQuestionTwo());
+		personProfile.setQuestionThree(resetPassword.getQuestionThree());
+		
+		return personProfile;
+	}
+	
 	private void validate(Profile profile) throws Exception {
 		if(!profile.getConfirmEmail().equalsIgnoreCase(profile.getEmail())) {
 			throw new Exception("Email is not valid");
@@ -48,17 +63,9 @@ public class ProfileValidation {
 
 	}
 
-	private UUID generateProfileId() {
-		UUID uuid = new UUID(10000,23455585);
-		return uuid.randomUUID();
-	}
-
 	public List<Person> getProfile(String key,String value) {
 
 		List<PersonProfile> persprofList = personDao.getProfile(key,value); 
-		System.out.println(persprofList);
-		System.out.println();
-
 		List<Person> personProfile = new ArrayList<Person>();
 
 		for(PersonProfile persprof: persprofList) {

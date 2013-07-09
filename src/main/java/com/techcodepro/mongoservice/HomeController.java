@@ -63,7 +63,14 @@ public class HomeController {
 	ProfileValidation profileValidation;
 
 	@RequestMapping(value = "/createprofile", method = RequestMethod.POST, consumes={"application/json", "application/xml"})
-	public @ResponseBody String homeTechCodePro(@RequestBody Profile profile) throws Exception {
+	public @ResponseBody String homeCreateProfile(@RequestBody Profile profile) throws Exception {
+
+		return profileValidation.homeTechCodePro(profile);
+
+	}
+	
+	@RequestMapping(value = "/createprofile", method = RequestMethod.POST, consumes={"application/json", "application/xml"})
+	public @ResponseBody String setPasswordRecovery(@RequestBody Profile profile) throws Exception {
 
 		return profileValidation.homeTechCodePro(profile);
 
@@ -75,4 +82,6 @@ public class HomeController {
 		return profileValidation.getProfile(key,value);
 
 	}
+	
+	
 }

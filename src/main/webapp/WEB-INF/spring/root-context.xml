@@ -24,7 +24,9 @@
 	<context:component-scan base-package="com.techcodepro.dao" />
 	<context:component-scan base-package="com.techcodepro.model" />
 	<context:component-scan base-package="com.techcodepro.service" />
+	<context:component-scan base-package="com.techcodepro.util"/>
 	
+	<util:properties id="appProperties" location="/WEB-INF/spring/application.properties"/>
 	
 	<bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="/WEB-INF/spring/application.properties"/>

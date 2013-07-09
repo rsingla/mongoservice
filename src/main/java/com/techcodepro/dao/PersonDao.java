@@ -11,5 +11,7 @@ public interface PersonDao {
 	
 	public String createProfile(PersonProfile personProfile);
 	public List<PersonProfile> getProfile(String key, String value);
+	public String updatePassword(String profileId, String newPassword);
+	
 
 }
